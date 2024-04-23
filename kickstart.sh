@@ -77,13 +77,14 @@ cp -rT ./etc/nginx /etc/nginx
 
 # The self-signed certificate only used for "boilerplate" config.
 # You must use certificates issued bt real CA, for example: certbot.
-PRI "Creating self-signed certificates and dhparams..."
-openssl req -x509 -newkey rsa:4096 -days 365 -nodes \
-    -keyout /etc/nginx/ssl/privkey.pem              \
-    -out /etc/nginx/ssl/fullchain.pem               \
-    -subj '/CN=example.local/O=My Organization/C=US'
-openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
-
+if [ ! -f /etc/nginx/ssl/dhparam.pem ]; then
+    PRI "Creating self-signed certificates and dhparams..."
+    openssl req -x509 -newkey rsa:4096 -days 365 -nodes \
+        -keyout /etc/nginx/ssl/privkey.pem              \
+        -out /etc/nginx/ssl/fullchain.pem               \
+        -subj '/CN=example.local/O=My Organization/C=US'
+    openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+fi
 nginx -t && systemctl restart nginx
 
 # ########### #
