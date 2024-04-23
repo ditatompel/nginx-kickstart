@@ -102,12 +102,12 @@ N_CONFIGURE_ARGS="${N_CONFIGURE_ARGS} --add-dynamic-module=./nginx-module-vts/"
 
 echo "Version: $N_VER"
 echo "Configure Arguments: $N_CONFIGURE_ARGS"
-
-rm -rf "./compile"
 mkdir -p "./compile"
 cd compile
-curl -o "nginx-${N_VER}.tar.gz" "https://nginx.org/download/nginx-${N_VER}.tar.gz"
-tar -xvzf "nginx-${N_VER}.tar.gz"
+if [ ! -f "./compile/nginx-${N_VER}/configure" ]; then
+    curl -o "nginx-${N_VER}.tar.gz" "https://nginx.org/download/nginx-${N_VER}.tar.gz"
+    tar -xvzf "nginx-${N_VER}.tar.gz"
+fi
 cd "nginx-${N_VER}"
 rm -rf "./nginx-module-vts"
 git clone -b "${VTS_VER}" https://github.com/vozlt/nginx-module-vts.git
