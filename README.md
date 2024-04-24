@@ -1,5 +1,54 @@
 # Nginx Kickstart
 
-A bash script that helped me install Nginx + GeoIP and VTS module on Ubuntu system.
+A bash script that helped me install Nginx + GeoIP (and compile VTS module, with example config) on Debian or Ubuntu system.
 
-> **NOTE**: >Only tested on Ubuntu 22.04.
+> **NOTE**: Only tested on Debian 12 and Ubuntu 22.04.
+> **WARNING**: **DO NOT** run this script if you:
+>
+> - Already have Nginx installed using distribution-provided package.
+> - Have process that use port 80 and 443.
+
+## Usage
+
+```shell
+# Clone this repository
+git clone https://github.com/ditatompel/ngx-kickstart.git && cd ngx-kickstart
+# To install Nginx
+sudo ./kickstart.sh -I
+# To compile Nginx VTS module
+sudo ./kickstart.sh -V
+```
+
+If this is your first time running the script and don't have any existing Nginx configuration that you already set, you can simply copy files and directory under [./etc/nginx](./etc/nginx) to your `/etc/nginx` directory by issuing this command:
+
+```
+sudo cp -rT ./etc/nginx /etc/nginx && \
+    sudo nginx -t && \
+    sudo systemctl restart nginx
+```
+
+By default, Nginx VTS module is not loaded, search for see `vhost_traffic_status` keywords in [./etc/nginx/nginx.conf](./etc/nginx/nginx.conf), [./etc/nginx/conf.d/default.conf](./etc/nginx/conf.d/default.conf), and [./etc/nginx/sites-available/example.local.conf](./etc/nginx/sites-available/example.local.conf) and uncomment that configuration example.
+
+## What does this script do?
+
+When you run the `kickstart.sh` script with `-I` option:
+
+1. Upgrade your system and install required packages.
+2. Import official Nginx signing key to `/usr/share/keyrings/nginx-archive-keyring.gpg`.
+3. Add Nginx apt repository to `/etc/apt/sources.list.d/nginx.list`.
+4. Prioritize Nginx official packages over distribution-provided ones.
+5. Install `nginx` and  `nginx-module-geoip`.
+6. Create "boilerplate" directory (`/etc/nginx/{ssl,sites-enabled,snippets}`).
+7. Generate self-signed certificate and DH Params key exchange.
+
+When you run the `kickstart.sh` scipt with `-V` option:
+
+1. Install required packages to compile Nginx VTS module (`git`, `build-essential`, `libpcre3-dev`, `zlib1g-dev`, and `libssl-dev`).
+2. Download your current running Nginx version archive from https://nginx.org/download and place it to `./compile` directory.
+3. Clone [vozlt/nginx-module-vts](https://github.com/vozlt/nginx-module-vts.git) and compile the dynamic module.
+4. Copy compiled VTS module to `/etc/nginx/modules/ngx_http_vhost_traffic_status_module.so`.
+5. Restart nginx service
+
+## Attributions and Resources
+
+- nginx.org
