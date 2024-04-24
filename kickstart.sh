@@ -68,12 +68,13 @@ install()
     apt-get update && apt-get upgrade -y
 
     PRI "Installing prerequistes..."
-    sudo apt install curl gnupg2 ca-certificates lsb-release ${PREREQUISTES} -y
+    apt install curl gnupg2 ca-certificates lsb-release ${PREREQUISTES} -y
 
-    PRI "Import an official nginx signing key..."
-    curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
-        | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
-
+    if [ ! -f /usr/share/keyrings/nginx-archive-keyring.gpg ]; then
+        PRI "Import an official nginx signing key..."
+        curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+            | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+    fi
     # Set up the apt repository for stable nginx packages
     echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
         http://nginx.org/packages/${DISTRO} $(lsb_release -cs) nginx" > \
