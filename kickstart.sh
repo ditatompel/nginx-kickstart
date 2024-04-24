@@ -105,7 +105,7 @@ echo "Version: $N_VER"
 echo "Configure Arguments: $N_CONFIGURE_ARGS"
 mkdir -p "./compile"
 cd compile
-if [ ! -f "./compile/nginx-${N_VER}/configure" ]; then
+if [ ! -f "./nginx-${N_VER}/configure" ]; then
     curl -o "nginx-${N_VER}.tar.gz" "https://nginx.org/download/nginx-${N_VER}.tar.gz"
     tar -xvzf "nginx-${N_VER}.tar.gz"
 fi
