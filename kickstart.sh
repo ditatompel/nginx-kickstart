@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Right now this script only tested on Ubuntu 22.04,
+# Right now this script only tested on Debian 12 and Ubuntu 22.04,
 # fresh installed server is recommended.
 # WARNING: DO NOT run this script if you:
 # - Already have Nginx installed using distribution-provided package.
@@ -18,7 +18,7 @@ PRI()
 
 print_prog_desc()
 {
-    PRI "Script that help install Nginx using their official repository for Ubuntu."
+    PRI "Script that help install Nginx using their official repository for Debian and Ubuntu."
     echo "WARNING: DO NOT run this script if you:"
     echo "- Already have Nginx installed using distribution-provided package."
     echo "- Have process that use port 80 and 443."
@@ -42,18 +42,19 @@ if command -v nginx &> /dev/null; then
     NGINX_INSTALLED=1
 fi
 
-if [ -f /etc/os-release ]; then
-    . /etc/os-release
-    [ "$ID" != "ubuntu" ] && echo "Distro not supported" && exit 1
-    DISTRO=$ID
+[ ! -f /etc/os-release ] && echo "Distro not supported" && exit 1
+
+. /etc/os-release
+if [ "$ID" = "ubuntu" ]; then
     PREREQUISTES="ubuntu-keyring"
-elif [ -f /etc/debian_version ]; then
-    DISTRO="debian"
+elif  [ "$ID" = "debian" ]; then
     PREREQUISTES="debian-archive-keyring"
 else
     echo "Distro not supported"
     exit 1
 fi
+
+DISTRO=$ID
 
 install()
 {
@@ -68,7 +69,7 @@ install()
     apt-get update && apt-get upgrade -y
 
     PRI "Installing prerequistes..."
-    apt install curl gnupg2 ca-certificates lsb-release ${PREREQUISTES} -y
+    apt install sudo curl gnupg2 ca-certificates lsb-release ${PREREQUISTES} -y
 
     if [ ! -f /usr/share/keyrings/nginx-archive-keyring.gpg ]; then
         PRI "Import an official nginx signing key..."
