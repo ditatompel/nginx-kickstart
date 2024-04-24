@@ -88,8 +88,7 @@ install()
     apt-get update && apt-get install nginx nginx-module-geoip -y
 
     # Creating and copying our nginx config directory
-    mkdir -p /etc/nginx/{ssl,sites-enabled}
-    cp -rT ./etc/nginx /etc/nginx
+    mkdir -p /etc/nginx/{ssl,sites-enabled,snippets}
 
     # The self-signed certificate only used for "boilerplate" config.
     # You must use certificates issued bt real CA, for example: certbot.
@@ -102,6 +101,18 @@ install()
         openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
     fi
     nginx -t && systemctl restart nginx
+    echo
+    echo "####################################################################"
+    echo "                      Installation complete."
+    echo "If this is your first time running this script and don't have any"
+    echo "existing Nginx configuration that you set, you can simply copy"
+    echo "files and directory under './etc/nginx'. Command:"
+    echo
+    echo "sudo cp -rT ./etc/nginx /etc/nginx && sudo nginx -t && sudo systemctl restart nginx"
+    echo
+    echo "Otherwise, take a look example configuration under './etc/nginx'"
+    echo "directory by your self."
+    echo "####################################################################"
 }
 
 compile_vts()
