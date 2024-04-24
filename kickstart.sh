@@ -2,7 +2,7 @@
 # Right now this script only tested on Ubuntu 22.04,
 # fresh installed server is recommended.
 # WARNING: DO NOT run this script if you:
-# - Already have Nginx installed
+# - Already have Nginx installed using distribution-provided package.
 # - Have process that use port 80 and 443.
 
 set -e
@@ -19,6 +19,10 @@ PRI()
 print_prog_desc()
 {
     PRI "Script that help install Nginx using their official repository for Ubuntu."
+    echo "WARNING: DO NOT run this script if you:"
+    echo "- Already have Nginx installed using distribution-provided package."
+    echo "- Have process that use port 80 and 443."
+    echo
 }
 
 print_help()
@@ -148,6 +152,7 @@ while getopts ":hIV" option; do
     esac
 done
 
+print_prog_desc
 print_help
 
 # vim: set ts=4 sw=4 et:
