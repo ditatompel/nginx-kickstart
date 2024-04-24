@@ -7,7 +7,7 @@
 
 set -e
 
-COMPILE_VTS=1    # Set 0 if you don't want to compile VTS module
+COMPILE_VTS=0    # Set 1 if you'want to compile VTS module
 VTS_VER="v0.2.2" # See https://github.com/vozlt/nginx-module-vts/releases
 
 [ "$(id -u)" -ne 0 ] && echo "This script must be run as root" && exit 1
