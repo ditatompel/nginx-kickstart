@@ -8,27 +8,6 @@ A bash script that helped me install Nginx + GeoIP (and compile VTS module, with
 > - Already have Nginx installed using distribution-provided package.
 > - Have process that use port 80 and 443.
 
-## Usage
-
-```shell
-# Clone this repository
-git clone https://github.com/ditatompel/ngx-kickstart.git && cd ngx-kickstart
-# To install Nginx
-sudo ./kickstart.sh -I
-# To compile Nginx VTS module
-sudo ./kickstart.sh -V
-```
-
-If this is your first time running the script and don't have any existing Nginx configuration that you already set, you can simply copy files and directory under [./etc/nginx](./etc/nginx) to your `/etc/nginx` directory by issuing this command:
-
-```
-sudo cp -rT ./etc/nginx /etc/nginx && \
-    sudo nginx -t && \
-    sudo systemctl restart nginx
-```
-
-By default, Nginx VTS module is not loaded, search for see `vhost_traffic_status` keywords in [./etc/nginx/nginx.conf](./etc/nginx/nginx.conf), [./etc/nginx/conf.d/default.conf](./etc/nginx/conf.d/default.conf), and [./etc/nginx/sites-available/example.local.conf](./etc/nginx/sites-available/example.local.conf) and uncomment that configuration example.
-
 ## What does this script do?
 
 When you run the `kickstart.sh` script with `-I` option:
@@ -49,6 +28,55 @@ When you run the `kickstart.sh` scipt with `-V` option:
 4. Copy compiled VTS module to `/etc/nginx/modules/ngx_http_vhost_traffic_status_module.so`.
 5. Restart nginx service
 
+## Usage
+
+```shell
+# Clone this repository
+git clone https://github.com/ditatompel/ngx-kickstart.git && cd ngx-kickstart
+# To install Nginx
+sudo ./kickstart.sh -I
+# To compile Nginx VTS module
+sudo ./kickstart.sh -V
+```
+
+If this is your first time running the script and don't have any existing Nginx configuration that you already set, you can simply copy files and directory under [./etc/nginx](./etc/nginx) to your `/etc/nginx` directory by issuing this command:
+
+```
+sudo cp -rT ./etc/nginx /etc/nginx && \
+    sudo /etc/nginx/cloudflare-ips.sh
+```
+
+By default, Nginx VTS module is not loaded, search for see `vhost_traffic_status` keywords in [./etc/nginx/nginx.conf](./etc/nginx/nginx.conf), [./etc/nginx/conf.d/default.conf](./etc/nginx/conf.d/default.conf), and [./etc/nginx/sites-available/example.local.conf](./etc/nginx/sites-available/example.local.conf) and uncomment that configuration example.
+
+If you following usage instruction above, your `/etc/nginx` directory structure should similar like this:
+
+```
+.
+|-- cloudflare-ips.sh
+|-- conf.d
+|   `-- default.conf
+|-- fastcgi_params
+|-- mime.types
+|-- modules -> /usr/lib/nginx/modules
+|-- nginx.conf
+|-- scgi_params
+|-- sites-available
+|   `-- example.local.conf
+|-- sites-enabled
+|-- snippets
+|   |-- cloudflare_geoip_proxy.conf
+|   |-- cloudflare_real_ips.conf
+|   |-- cloudflare_whitelist.conf
+|   `-- ssl-params.conf
+|-- ssl
+|   |-- dhparam.pem
+|   |-- fullchain.pem
+|   `-- privkey.pem
+`-- uwsgi_params
+```
+
 ## Attributions and Resources
 
 - nginx.org
+- [vozlt/nginx-module-vts](https://github.com/vozlt/nginx-module-vts): Nginx virtual host traffic status module.
+- [itsjfx/cloudflare-nginx-ips](https://github.com/itsjfx/cloudflare-nginx-ips.git).

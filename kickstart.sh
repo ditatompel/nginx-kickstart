@@ -110,7 +110,8 @@ install()
     echo "existing Nginx configuration that you set, you can simply copy"
     echo "files and directory under './etc/nginx'. Command:"
     echo
-    echo "sudo cp -rT ./etc/nginx /etc/nginx && sudo nginx -t && sudo systemctl restart nginx"
+    echo "sudo cp -rT ./etc/nginx /etc/nginx && \\"
+    echo "    sudo /etc/nginx/cloudflare-ips.sh"
     echo
     echo "Otherwise, take a look example configuration under './etc/nginx'"
     echo "directory by your self."
