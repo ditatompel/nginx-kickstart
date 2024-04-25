@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Right now this script only tested on Debian 12 and Ubuntu 22.04,
 # fresh installed server is recommended.
-# WARNING: DO NOT run this script if you:
+#
+#WARNING: DO NOT run this script if you:
 # - Already have Nginx installed using distribution-provided package.
 # - Have process that use port 80 and 443.
 
