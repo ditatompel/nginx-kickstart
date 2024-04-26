@@ -18,7 +18,7 @@ When you run the `kickstart.sh` script with `-I` option:
 3. Add Nginx apt repository to `/etc/apt/sources.list.d/nginx.list`.
 4. Prioritize Nginx official packages over distribution-provided ones.
 5. Install `nginx` and  `nginx-module-geoip`.
-6. Create "boilerplate" directory (`/etc/nginx/{ssl,sites-enabled,snippets}`).
+6. Create "boilerplate" directory (`/etc/nginx/{certs,sites-enabled,snippets}`).
 7. Generate self-signed certificate and DH Params key exchange.
 
 When you run the `kickstart.sh` scipt with `-V` option:
@@ -69,7 +69,7 @@ If you following usage instruction above, your `/etc/nginx` directory structure 
 |   |-- cloudflare_real_ips.conf
 |   |-- cloudflare_whitelist.conf
 |   `-- ssl-params.conf
-|-- ssl
+|-- certs
 |   |-- dhparam.pem
 |   |-- fullchain.pem
 |   `-- privkey.pem

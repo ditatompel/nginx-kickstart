@@ -91,17 +91,17 @@ install()
     apt-get update && apt-get install nginx nginx-module-geoip -y
 
     # Creating and copying our nginx config directory
-    mkdir -p /etc/nginx/{ssl,sites-enabled,snippets}
+    mkdir -p /etc/nginx/{certs,sites-enabled,snippets}
 
     # The self-signed certificate only used for "boilerplate" config.
     # You must use certificates issued bt real CA, for example: certbot.
-    if [ ! -f /etc/nginx/ssl/dhparam.pem ]; then
+    if [ ! -f /etc/nginx/certs/dhparam.pem ]; then
         PRI "Creating self-signed certificates and dhparams..."
         openssl req -x509 -newkey rsa:4096 -days 365 -nodes \
-            -keyout /etc/nginx/ssl/privkey.pem              \
-            -out /etc/nginx/ssl/fullchain.pem               \
+            -keyout /etc/nginx/certs/privkey.pem            \
+            -out /etc/nginx/certs/fullchain.pem             \
             -subj '/CN=example.local/O=My Organization/C=US'
-        openssl dhparam -out /etc/nginx/ssl/dhparam.pem 2048
+        openssl dhparam -out /etc/nginx/certs/dhparam.pem 2048
     fi
     nginx -t && systemctl restart nginx
     echo
