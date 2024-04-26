@@ -2,7 +2,7 @@
 # Right now this script only tested on Debian 12 and Ubuntu 22.04,
 # fresh installed server is recommended.
 #
-#WARNING: DO NOT run this script if you:
+# WARNING: DO NOT run this script if you:
 # - Already have Nginx installed using distribution-provided package.
 # - Have process that use port 80 and 443.
 
@@ -143,7 +143,7 @@ compile_vts()
     rm -rf "./nginx-module-vts"
     git clone -b "${VTS_VER}" https://github.com/vozlt/nginx-module-vts.git
     eval ./configure "${N_CONFIGURE_ARGS}"
-    make -j"$(nproc)"
+    make modules -j"$(nproc)"
     cp objs/ngx_http_vhost_traffic_status_module.so /etc/nginx/modules/
     nginx -t && systemctl restart nginx
 }
