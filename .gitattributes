@@ -1,0 +1,4 @@
+# Make GitHub's language statistics treat the `.conf` under `/etc/nginx`
+# as Nginx configuration files.
+/etc/nginx/**.conf linguist-language=Nginx
+/etc/nginx/**.conf linguist-detectable=true
