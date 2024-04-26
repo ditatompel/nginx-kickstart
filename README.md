@@ -33,7 +33,7 @@ When you run the `kickstart.sh` scipt with `-V` option:
 
 ```shell
 # Clone this repository
-git clone https://github.com/ditatompel/ngx-kickstart.git && cd ngx-kickstart
+git clone https://github.com/ditatompel/nginx-kickstart.git && cd nginx-kickstart
 # To install Nginx with GeoIP module
 sudo ./kickstart.sh -I
 # To compile Nginx VTS module
