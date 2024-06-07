@@ -60,7 +60,8 @@ DISTRO=$ID
 install()
 {
     PRI "Detected Distro: $DISTRO"
-    echo "This script will upgrade your system and install Nginx + GeoIP."
+    echo "This script will retrieve new lists of packages of your system"
+    echo "and install Nginx + GeoIP from it's official repository."
     echo "The /etc/nginx directory will be modified by this script."
     echo
     read -p "Do you want to continue? ([y]es/[n]o): " answer
