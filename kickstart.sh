@@ -67,7 +67,8 @@ install()
     [ "$answer" != "y" ] && echo "Script execution aborted." && exit 0
 
     PRI "Performing system upgrade..."
-    apt-get update && apt-get upgrade -y
+    # apt-get update && apt-get upgrade -y
+    apt-get update
 
     PRI "Installing prerequistes..."
     apt install sudo curl gnupg2 ca-certificates lsb-release ${PREREQUISTES} -y
