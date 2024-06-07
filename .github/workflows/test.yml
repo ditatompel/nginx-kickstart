@@ -23,4 +23,4 @@ jobs:
 
       - name: Text nginx config
         run: |
-          nginx -t
+          sudo nginx -t
