@@ -1,10 +1,9 @@
-name: Test Install Script
+name: Test The script
 
 on:
   push:
     branches:
       - main
-      - test
   pull_request:
 
 jobs:
@@ -15,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run install Nginx
+      - name: install Nginx from official repository
         run: |
           chmod +x ./kickstart.sh
           echo "y" | sudo ./kickstart.sh -I
@@ -26,6 +25,6 @@ jobs:
           sudo cp -rT ./etc/nginx /etc/nginx && sudo /etc/nginx/cloudflare-ips.sh
           sudo ./kickstart.sh -V
 
-      - name: Text nginx config
+      - name: Test nginx config
         run: |
           sudo nginx -t
