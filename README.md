@@ -1,5 +1,7 @@
 # Nginx Kickstart
 
+![Test Action](https://github.com/ditatompel/nginx-kickstart/actions/workflows/test.yml/badge.svg?branch=main)
+
 A bash script that helped me install Nginx + GeoIP module (and optionally compile VTS module, with example config) on FRESH **Debian** or **Ubuntu** system.
 
 > **NOTE**: Only tested on **Debian** `12` and **Ubuntu** `22.04`.
@@ -8,16 +10,21 @@ A bash script that helped me install Nginx + GeoIP module (and optionally compil
 >
 > - Already have Nginx installed using distribution-provided package.
 > - Have process that use port 80 and 443.
+>
+> **WARNING**: Using a dynamic module with Nginx will prevent it from starting
+> if there is an update (for example, from 1.26.0 to 1.26.1). In this case,
+> downtime can't be avoided and you need to recompile the dynamic module again.
+> To recompile the module, you can re-execute `sudo ./kickstart.sh -V` again.
 
 ## What does this script do?
 
 When you run the `kickstart.sh` script with `-I` option:
 
-1. Upgrade your system and install required packages.
+1. Update your system packages and install required packages.
 2. Import official Nginx signing key to `/usr/share/keyrings/nginx-archive-keyring.gpg`.
 3. Add Nginx apt repository to `/etc/apt/sources.list.d/nginx.list`.
 4. Prioritize Nginx official packages over distribution-provided ones.
-5. Install `nginx` and  `nginx-module-geoip`.
+5. Install `nginx` and `nginx-module-geoip`.
 6. Create "boilerplate" directory (`/etc/nginx/{certs,sites-enabled,snippets}`).
 7. Generate self-signed certificate and DH Params key exchange.
 
