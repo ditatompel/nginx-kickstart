@@ -23,7 +23,7 @@ jobs:
       - name: Compile VTS
         run: |
           sed -i 's/\(^# load_module\|^ *# vhost_traffic_\)/\1/' ./etc/nginx/nginx.conf
-          sudo cp -rT ./etc/nginx /etc/nginx
+          sudo cp -rT ./etc/nginx /etc/nginx && sudo /etc/nginx/cloudflare-ips.sh
           sudo ./kickstart.sh -V
 
       - name: Text nginx config
