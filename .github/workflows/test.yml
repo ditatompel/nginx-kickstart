@@ -19,7 +19,7 @@ jobs:
         run: |
           sed -i 's/\(^# load_module\|^ *# vhost_traffic_\)/\1/' ./etc/nginx/nginx.conf
           chmod +x ./kickstart.sh
-          sudo ./kickstart.sh -I
+          echo "y" | sudo ./kickstart.sh -I
 
       - name: Text nginx config
         run: |
