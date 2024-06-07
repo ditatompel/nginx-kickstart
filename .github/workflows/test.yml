@@ -24,7 +24,7 @@ jobs:
         run: |
           sed -i 's/\(^# load_module\|^ *# vhost_traffic_\)/\1/' ./etc/nginx/nginx.conf
           sudo cp -rT ./etc/nginx /etc/nginx
-          ./kickstart.sh -V
+          sudo ./kickstart.sh -V
 
       - name: Text nginx config
         run: |
