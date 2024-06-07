@@ -1,4 +1,4 @@
-name: Test The script
+name: Test kickstart.sh
 
 on:
   push:
