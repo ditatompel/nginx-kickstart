@@ -1,0 +1,26 @@
+name: Test Install Script
+
+on:
+  push:
+    branches:
+      - main
+      - test
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run install Nginx
+        run: |
+          sed -i 's/\(^# load_module\|^ *# vhost_traffic_\)/\1/' ./etc/nginx/nginx.conf
+          chmod +x ./kickstart.sh
+          sudo ./kickstart.sh -I
+
+      - name: Text nginx config
+        run: |
+          nginx -t
